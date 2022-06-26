@@ -27,9 +27,13 @@ class TimeController extends Controller
     {
         $time = TimeService::store($request->all());
         if ($time) {
-            return redirect()->back()->with('success');
+            return view('times.create', [
+                'success' => true,
+            ]);
         } else {
-            return redirect()->back()->with('error');
+            return view('times.create', [
+                'success' => false,
+            ]);
         }
     }
 

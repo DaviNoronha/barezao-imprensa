@@ -40,7 +40,7 @@
                         </div>
                         <div class="modal-body">
                             <div class="table-responsive">
-                                <table id="tabela-jogadores" >
+                                <table id="tabela-jogadores" class="table align-items-center table-flush w-100">
                                 </table>
                             </div>
                         </div>
@@ -80,8 +80,27 @@
 
         });
 
-        function exibirModalJogadores() {
-            $("#modal-jogadores").modal('show');
+        function carregaTabelaJogadores(timeId) {
+            var table = $('#tabela-jogadores').DataTable({
+                processing: true,
+                serverSide: true,
+                language: {
+                    url: "//cdn.datatables.net/plug-ins/1.12.1/i18n/pt-BR.json"
+                },
+                ajax: {
+                    url: "{{ route('datatable.jogador') }}",
+                    data : {
+                        timeId: timeId,
+                    }
+                },
+                columns: [
+                    {data: 'nome', name: 'nome', title:"Nome"},
+                    {data: 'time', name: 'time', title:"Time"},
+                ],
+                paging: false,
+                info: false,
+                searching: false,
+            });
         }
     </script>
 @endpush

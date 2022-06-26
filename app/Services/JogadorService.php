@@ -9,9 +9,11 @@ use Throwable;
 
 class JogadorService
 {
-    public static function list() {
+    public static function list($timeId = null) {
         try {
-            return Jogador::with('time')->get();
+            return Jogador::when($timeId, function ($q) use($timeId) {
+                $q->where('time_id', $timeId);
+            })->with('time')->get();
         } catch (Throwable $th) {
             Log::error([
                 'mensagem' => $th->getMessage(),

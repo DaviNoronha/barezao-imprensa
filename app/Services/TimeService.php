@@ -9,9 +9,11 @@ use Throwable;
 
 class TimeService
 {
-    public static function list() {
+    public static function list($timeId = null) {
         try {
-            return Time::all();
+            return Time::when($timeId, function ($q) use ($timeId) {
+                $q->where('id', $timeId);
+            })->get();
         } catch (Throwable $th) {
             Log::error([
                 'mensagem' => $th->getMessage(),

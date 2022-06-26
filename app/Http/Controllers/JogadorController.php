@@ -7,6 +7,7 @@ use App\Services\JogadorService;
 use App\Services\TimeService;
 use Illuminate\Http\Request;
 use DataTables;
+use Auth;
 
 class JogadorController extends Controller
 {
@@ -18,7 +19,7 @@ class JogadorController extends Controller
     public function create()
     {
         return view('jogadores.create', [
-            'times' => TimeService::list(),
+            'times' => TimeService::list(Auth::user()->time->id ?? null),
         ]);
     }
 
@@ -28,15 +29,14 @@ class JogadorController extends Controller
         if ($jogador) {
             return view('jogadores.create', [
                 'success' => true,
-                'times' => TimeService::list()
+                'times' => TimeService::list(Auth::user()->time->id ?? null)
             ]);
         } else {
             return view('jogadores.create', [
                 'success' => false,
-                'times' => TimeService::list()
+                'times' => TimeService::list(Auth::user()->time->id ?? null)
             ]);
         }
-
     }
 
     public function show(Jogador $jogador)
@@ -48,7 +48,7 @@ class JogadorController extends Controller
     {
         return view('jogadores.edit', [
             'jogador' => $jogador,
-            'times' => TimeService::list(),
+            'times' => TimeService::list(Auth::user()->time->id ?? null),
         ]);
     }
 
@@ -68,7 +68,7 @@ class JogadorController extends Controller
     public function datatable(Request $request)
     {
         if ($request->ajax()) {
-            $data = JogadorService::list();
+            $data = JogadorService::list($request->timeId);
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function($data){

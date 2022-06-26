@@ -30,9 +30,17 @@ class UserController extends Controller
     {
         $user = UserService::store($request->all());
         if ($user) {
-            return redirect()->back()->with('success');
+            return view('users.create', [
+                'success' => true,
+                'times' => TimeService::list(),
+                'perfis' => PerfilService::list(),
+            ]);
         } else {
-            return redirect()->back()->with('error');
+            return view('users.create', [
+                'success' => false,
+                'times' => TimeService::list(),
+                'perfis' => PerfilService::list(),
+            ]);
         }
     }
 

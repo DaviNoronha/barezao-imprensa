@@ -12,9 +12,11 @@
                             <div class="col-md-4 text-left">
                                 <h1>Jogadores</h1>
                             </div>
-                            <div class="col-md-8 text-right">
-                                <a href="{{ route('jogador.create') }}" class="btn btn-primary">Inscrever jogador</a>
-                            </div>
+                            @if (Auth::user()->perfil->nome == 'admin')
+                                <div class="col-md-8 text-right">
+                                    <a href="{{ route('jogador.create') }}" class="btn btn-primary">Inscrever jogador</a>
+                                </div>
+                            @endif
                         </div>
                     </div>
                     <div class="card-body">
