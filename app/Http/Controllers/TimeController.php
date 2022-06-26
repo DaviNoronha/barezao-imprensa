@@ -2,84 +2,71 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TimeRequest;
+use App\Services\TimeService;
 use App\Time;
 use Illuminate\Http\Request;
+use DataTables;
 
 class TimeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
+        $times = Time::all();
+        return view('times.index', [
+            'times' => $times
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        return view('times.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function store(TimeRequest $request)
     {
-        //
+        $time = TimeService::store($request->all());
+        if ($time) {
+            return redirect()->back()->with('success');
+        } else {
+            return redirect()->back()->with('error');
+        }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Time  $time
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Time $time)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Time  $time
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Time $time)
     {
-        //
+        return view('times.edit', [
+            'time' => $time,
+        ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Time  $time
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Time $time)
+    public function update(TimeRequest $request, Time $time)
     {
-        //
+        TimeService::update($request->all(), $time);
+        return redirect()->route('time.index', $time->id);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Time  $time
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Time $time)
     {
-        //
+        $time = TimeService::destroy($time);
+
+        return redirect()->route('time.index')->with('success', 'Time deletado com sucesso!');
+    }
+
+    public function datatable(Request $request)
+    {
+        if ($request->ajax()) {
+            $data = TimeService::list();
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function($data){
+                    return view('components.acoes', [
+                        'data' => $data,
+                        'tipo' => 'time'
+                    ]);
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
     }
 }

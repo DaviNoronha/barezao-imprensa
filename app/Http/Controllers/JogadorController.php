@@ -3,83 +3,85 @@
 namespace App\Http\Controllers;
 
 use App\Jogador;
+use App\Services\JogadorService;
+use App\Services\TimeService;
 use Illuminate\Http\Request;
+use DataTables;
 
 class JogadorController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
+        return view('jogadores.index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        return view('jogadores.create', [
+            'times' => TimeService::list(),
+        ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        $jogador = JogadorService::store($request->all());
+        if ($jogador) {
+            return view('jogadores.create', [
+                'success' => true,
+                'times' => TimeService::list()
+            ]);
+        } else {
+            return view('jogadores.create', [
+                'success' => false,
+                'times' => TimeService::list()
+            ]);
+        }
+
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Jogador  $jogador
-     * @return \Illuminate\Http\Response
-     */
     public function show(Jogador $jogador)
     {
-        //
+        return view('jogadores.show');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Jogador  $jogador
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Jogador $jogador)
     {
-        //
+        return view('jogadores.edit', [
+            'jogador' => $jogador,
+            'times' => TimeService::list(),
+        ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Jogador  $jogador
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Jogador $jogador)
     {
-        //
+        JogadorService::update($request->all(), $jogador);
+        return redirect()->route('jogador.index', $jogador->id);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Jogador  $jogador
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Jogador $jogador)
     {
-        //
+        $jogador = JogadorService::destroy($jogador);
+
+        return redirect()->route('jogador.index')->with('success', 'Jogador deletado com sucesso!');
+    }
+
+    public function datatable(Request $request)
+    {
+        if ($request->ajax()) {
+            $data = JogadorService::list();
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function($data){
+                    return view('components.acoes', [
+                        'data' => $data,
+                        'tipo' => 'jogador'
+                    ]);
+                })
+                ->editColumn('time', function($data){
+                    return $data->time->time;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
     }
 }

@@ -4,13 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Jogador extends Model
+class Partida extends Model
 {
-    protected $table = 'jogadores';
-
-    protected $fillable = [
-        'nome', 'documento', 'time_id'
-    ];
+    protected $table = 'partidas';
 
     public function time()
     {
