@@ -43,7 +43,6 @@ class UserService
             $request['time_id'] = $request['time_id'] == 0 ? null : $request['time_id'];
             return User::create($request);
         } catch (Throwable $th) {
-            dd($request->messages());
             Log::error([
                 'mensagem' => $th->getMessage(),
                 'linha' => $th->getLine(),

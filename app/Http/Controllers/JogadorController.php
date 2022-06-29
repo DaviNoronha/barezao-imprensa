@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\JogadorRequest;
 use App\Jogador;
 use App\Services\JogadorService;
 use App\Services\TimeService;
@@ -23,25 +24,24 @@ class JogadorController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(JogadorRequest $request)
     {
-        $jogador = JogadorService::store($request->all());
+        $jogador = JogadorService::store($request);
         if ($jogador) {
-            return view('jogadores.create', [
+            return view('jogadores.index', [
                 'success' => true,
-                'times' => TimeService::list(Auth::user()->time->id ?? null)
-            ]);
-        } else {
-            return view('jogadores.create', [
-                'success' => false,
-                'times' => TimeService::list(Auth::user()->time->id ?? null)
+                'mensagem' => 'Inscrição do jogador realizada com sucesso',
             ]);
         }
+
+        return redirect()->route('jogador.create')->with('errors', $request->messages());
     }
 
     public function show(Jogador $jogador)
     {
-        return view('jogadores.show');
+        return view('jogadores.show', [
+            'jogador' => JogadorService::find($jogador->id)
+        ]);
     }
 
     public function edit(Jogador $jogador)
@@ -52,17 +52,29 @@ class JogadorController extends Controller
         ]);
     }
 
-    public function update(Request $request, Jogador $jogador)
+    public function update(JogadorRequest $request, Jogador $jogador)
     {
-        JogadorService::update($request->all(), $jogador);
-        return redirect()->route('jogador.index', $jogador->id);
+        JogadorService::update($request, $jogador);
+        if ($jogador) {
+            return view('jogadores.index', [
+                'success' => true,
+                'mensagem' => 'Informações do jogador atualizadas com sucesso!',
+            ]);
+        }
+        return redirect()->route('jogador.edit', $jogador->id)->with('errors', $request->messages());
     }
 
     public function destroy(Jogador $jogador)
     {
         $jogador = JogadorService::destroy($jogador);
+        if ($jogador) {
+            return view('jogadores.index', [
+                'success' => true,
+                'mensagem' => 'Jogador deletado com sucesso!',
+            ]);
+        }
 
-        return redirect()->route('jogador.index')->with('success', 'Jogador deletado com sucesso!');
+        return redirect()->route('jogador.index')->with('errors', 'Erro ao deletar usuário!');
     }
 
     public function datatable(Request $request)
@@ -79,6 +91,9 @@ class JogadorController extends Controller
                 })
                 ->editColumn('time', function($data){
                     return $data->time->time;
+                })
+                ->editColumn('tipo', function($data){
+                    return $data->tipo == '0' ? 'Imprensa' : 'Estrangeiro';
                 })
                 ->rawColumns(['action'])
                 ->make(true);

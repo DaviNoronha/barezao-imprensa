@@ -29,6 +29,8 @@ Route::group(['middleware' => 'auth'], function () {
     });
 	Route::resource('time', 'TimeController', ['except' => 'show']);
 	Route::get('datatable/time', 'TimeController@datatable')->name('datatable.time');
+	Route::get('time/{time}/jogadores', 'TimeController@jogadores')->name('time.jogadores');
+	Route::get('datatable/time/jogadores', 'TimeController@datatableJogadores')->name('datatable.time.jogadores');
 	Route::resource('jogador', 'JogadorController');
 	Route::get('datatable/jogador', 'JogadorController@datatable')->name('datatable.jogador');
 });

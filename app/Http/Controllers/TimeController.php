@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\TimeRequest;
+use App\Services\JogadorService;
 use App\Services\TimeService;
 use App\Time;
 use Illuminate\Http\Request;
@@ -27,14 +28,13 @@ class TimeController extends Controller
     {
         $time = TimeService::store($request->all());
         if ($time) {
-            return view('times.create', [
+            return view('times.index', [
                 'success' => true,
-            ]);
-        } else {
-            return view('times.create', [
-                'success' => false,
+                'mensagem' => 'Time inscrito com sucesso!',
             ]);
         }
+        return redirect()->route('time.create')->with('errors', $request->messages());
+
     }
 
     public function edit(Time $time)
@@ -47,14 +47,25 @@ class TimeController extends Controller
     public function update(TimeRequest $request, Time $time)
     {
         TimeService::update($request->all(), $time);
-        return redirect()->route('time.index', $time->id);
+        if ($time) {
+            return view('times.index', [
+                'success' => true,
+                'mensagem' => 'Informações do time atualizadas com sucesso!',
+            ]);
+        }
+        return redirect()->route('time.edit', $time->id)->with('errors', $request->messages());
     }
 
     public function destroy(Time $time)
     {
         $time = TimeService::destroy($time);
-
-        return redirect()->route('time.index')->with('success', 'Time deletado com sucesso!');
+        if ($time) {
+            return view('times.index', [
+                'success' => true,
+                'mensagem' => 'Time deletado com sucesso',
+            ]);
+        }
+        return redirect()->route('time.index')->with('errors', 'Erro ao deletar o time');
     }
 
     public function datatable(Request $request)
@@ -73,4 +84,35 @@ class TimeController extends Controller
                 ->make(true);
         }
     }
+
+    public function jogadores(Time $time)
+    {
+            return view('times.jogadores', [
+            'time' => TimeService::find($time->id)
+        ]);
+    }
+
+
+    public function datatableJogadores(Request $request)
+    {
+        if ($request->ajax()) {
+            $data = JogadorService::list($request->timeId);
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function($data){
+                    $rota = route('jogador.show', $data->id);
+                    $button = '<a href="'.$rota.'" class="btn btn-sm btn-default"><i class="fas fa-eye"></i></a>';
+                    return $button;
+                })
+                ->editColumn('time', function($data){
+                    return $data->time->time;
+                })
+                ->editColumn('tipo', function($data){
+                    return $data->tipo == '0' ? 'Imprensa' : 'Estrangeiro';
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+    }
+
 }

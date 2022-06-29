@@ -39,15 +39,19 @@ class JogadorService
     public static function store($request)
     {
         try {
-            $request['time_id'] = $request['time_id'] == 0 ? null : $request['time_id'];
-            return Jogador::create($request);
-
-            // if ($request->documento) {
-            //         $arquivo = $request->documento;
-            //         $jogador->documento = $arquivo->store('jogador/' . $jogador->id);
-            // }
+            return Jogador::create([
+                'nome' => $request->nome,
+                'numero' => $request->numero,
+                'nome_camisa' => $request->nome_camisa,
+                'cpf' => $request->cpf,
+                'documento' => $request->file('documento')->store('documentos/' . $request->time_id . '/' . $request->numero),
+                'foto' => $request->file('foto')->store('jogador_fotos/' . $request->time_id . '/' . $request->numero),
+                'tipo' => $request->tipo,
+                'funcao' => $request->funcao,
+                'tipo' => $request->tipo,
+                'time_id' => $request->time_id,
+            ]);
         } catch (Throwable $th) {
-            dd($th->getMessage());
             Log::error([
                 'mensagem' => $th->getMessage(),
                 'linha' => $th->getLine(),
@@ -60,10 +64,19 @@ class JogadorService
     public static function update($request, $jogador)
     {
         try {
-            $request['time_id'] = $request['time_id'] == 0 ? null : $request['time_id'];
-            $jogador->update($request);
-            return $jogador;
+            $jogador->nome = $request->nome;
+            $jogador->numero = $request->numero;
+            $jogador->nome_camisa = $request->nome_camisa;
+            $jogador->cpf = $request->cpf;
+            $jogador->documento = $request->file('documento')->store('documentos/' . $request->time_id . '/' . $request->numero);
+            $jogador->foto = $request->file('foto')->store('jogador_fotos/' . $request->time_id . '/' . $request->numero);
+            $jogador->tipo = $request->tipo;
+            $jogador->funcao = $request->funcao;
+            $jogador->tipo = $request->tipo;
+            $jogador->time_id = $request->time_id;
+            return $jogador->update();
         } catch (Throwable $th) {
+            dd($th->getMessage());
             Log::error([
                 'mensagem' => $th->getMessage(),
                 'linha' => $th->getLine(),
@@ -72,10 +85,10 @@ class JogadorService
         }
     }
 
-    public static function destroy($Jogador)
+    public static function destroy($jogador)
     {
         try {
-            return $Jogador->delete();
+            return $jogador->delete();
         } catch (Throwable $th) {
             Log::error([
                 'mensagem' => $th->getMessage(),

@@ -9,7 +9,7 @@ class Jogador extends Model
     protected $table = 'jogadores';
 
     protected $fillable = [
-        'nome', 'documento', 'time_id'
+        'nome', 'numero', 'nome_camisa', 'cpf', 'documento', 'foto', 'tipo', 'funcao', 'time_id'
     ];
 
     public function time()

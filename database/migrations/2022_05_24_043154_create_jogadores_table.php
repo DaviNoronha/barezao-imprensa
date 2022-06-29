@@ -16,7 +16,13 @@ class CreateJogadoresTable extends Migration
         Schema::create('jogadores', function (Blueprint $table) {
             $table->id();
             $table->string('nome');
+            $table->string('numero');
+            $table->string('nome_camisa');
+            $table->string('cpf');
             $table->string('documento');
+            $table->string('foto');
+            $table->string('tipo');
+            $table->string('funcao');
             $table->unsignedBigInteger('time_id');
             $table->timestamps();
 

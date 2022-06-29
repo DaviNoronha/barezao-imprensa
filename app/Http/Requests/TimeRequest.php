@@ -28,7 +28,7 @@ class TimeRequest extends FormRequest
                 'required', 'min:3'
             ],
             'empresa' => [
-                'required'
+                'required', 'min:2'
             ],
         ];
     }
@@ -37,8 +37,9 @@ class TimeRequest extends FormRequest
     {
         return [
             "time.required" => "Por favor insira um time!",
-            "title.min" => "O nome do time precisa ter mais de 3 caracteres!",
+            "time.min" => "O nome do time precisa ter mais de 3 caracteres!",
             "empresa.required" => "Por favor insira uma empresa",
+            "empresa.min" => "A empresa precisa ter mais de 3 caracteres",
         ];
     }
 }

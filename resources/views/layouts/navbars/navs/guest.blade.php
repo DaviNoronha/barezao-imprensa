@@ -21,7 +21,7 @@
                 </div>
             </div>
             <!-- Navbar items -->
-            <ul class="navbar-nav ml-auto">
+            {{-- <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
                     <a class="nav-link nav-link-icon" href="{{ route('register') }}">
                         <i class="ni ni-circle-08"></i>
@@ -34,7 +34,7 @@
                         <span class="nav-link-inner--text">{{ __('Faça seu Login') }}</span>
                     </a>
                 </li>
-            </ul>
+            </ul> --}}
         </div>
     </div>
 </nav>

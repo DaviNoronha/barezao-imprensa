@@ -30,18 +30,12 @@ class UserController extends Controller
     {
         $user = UserService::store($request->all());
         if ($user) {
-            return view('users.create', [
+            return view('users.index', [
                 'success' => true,
-                'times' => TimeService::list(),
-                'perfis' => PerfilService::list(),
-            ]);
-        } else {
-            return view('users.create', [
-                'success' => false,
-                'times' => TimeService::list(),
-                'perfis' => PerfilService::list(),
+                'mensagem' => 'Usuário cadastrado com sucesso!',
             ]);
         }
+        return redirect()->route('user.create')->with('errors', $request->messages());
     }
 
     public function edit(User $user)
@@ -56,14 +50,25 @@ class UserController extends Controller
     public function update(User $user, UserUpdateRequest $request)
     {
         UserService::update($request->all(), $user);
-        return redirect()->route('user.index', $user->id);
+        if ($user) {
+            return view('users.index', [
+                'success' => true,
+                'mensagem' => 'Informações do usuário atualizadas com sucesso!',
+            ]);
+        }
+        return redirect()->route('user.edit', $user->id)->with('errors', $request->messages());
     }
 
     public function destroy(User $user)
     {
         $user = UserService::destroy($user);
-
-        return redirect()->route('user.index')->with('success', 'Usuário deletado com sucesso!');
+        if ($user) {
+            return view('users.index', [
+                'success' => true,
+                'mensagem' => 'Usuário deletado com sucesso!',
+            ]);
+        }
+        return redirect()->route('user.index')->with('error', 'Erro deletar o usuário!');
     }
 
     public function datatable(Request $request)

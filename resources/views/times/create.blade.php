@@ -11,6 +11,13 @@
     </div>
     <div class="col-md-12">
         <div class="container mt--7 card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-md-4 text-left">
+                        <h1>Inscrever Time</h1>
+                    </div>
+                </div>
+            </div>
             <div class="card-body">
                 @if ($errors->any())
                     <div class="alert alert-danger">
@@ -36,17 +43,6 @@
                     </div>
                     <a href="{{ route('time.index') }}" class="btn btn-default">Voltar</a>
                     <button type="submit" class="btn btn-primary">Salvar</button>
-                    @isset($success)
-                        @if($success)
-                            <div class="alert alert-success mt-3">
-                                <strong>Sucesso!</strong> Time foi inscrito com sucesso.
-                            </div>
-                        @else
-                            <div class="alert alert-danger mt-3">
-                                <strong>Erro!</strong> Ocorreu um erro ao inscrever o time.
-                            </div>
-                        @endif
-                    @endisset
                 </form>
             </div>
         </div>

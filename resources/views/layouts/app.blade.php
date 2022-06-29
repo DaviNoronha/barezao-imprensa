@@ -32,7 +32,7 @@
 
         <div class="main-content">
             @include('layouts.navbars.navbar')
-                @yield('content')
+            @yield('content')
         </div>
 
         <script src="{{ asset('argon') }}/vendor/jquery/dist/jquery.min.js"></script>

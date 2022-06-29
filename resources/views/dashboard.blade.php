@@ -8,7 +8,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="table-responsive p-3">
-                            <table id="tabela-times" class="table align-items-center table-flush w-100">
+                            <table id="tabela-times" class="table table-striped align-items-center table-flush w-100">
                             </table>
                         </div>
                     </div>
@@ -36,6 +36,7 @@
                 ],
                 searching: false,
                 paging: false,
+                info: false
             });
 
         });

@@ -1,4 +1,9 @@
-<div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
+<div class="header bg-gradient-primary pb-8 pt-3 pt-md-4">
+    <div class="mb-3 d-flex justify-content-center">
+        <a href="{{ route('home') }}">
+            <img src="{{ asset('storage') }}/img/barezao_logo.png" style="width: 200px" alt="...">
+        </a>
+    </div>
     <div class="container-fluid">
         <div class="header-body">
             <div class="row">

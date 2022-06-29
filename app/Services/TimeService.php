@@ -26,7 +26,7 @@ class TimeService
     public static function find($id)
     {
         try {
-            return Time::where('id', $id)->with(['time', 'perfil'])->first();
+            return Time::where('id', $id)->first();
         } catch (Throwable $th) {
             Log::error([
                 'mensagem' => $th->getMessage(),

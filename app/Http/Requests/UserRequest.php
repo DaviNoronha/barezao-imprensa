@@ -45,11 +45,11 @@ class UserRequest extends FormRequest
     {
         return [
             "nome.required" => "Por favor insira um nome!",
-            "title.min" => "O nome precisa ter mais de 3 caracteres!",
+            "nome.min" => "O nome precisa ter mais de 3 caracteres!",
             "email.required" => "Por favor insira um email",
             "email.email" => "Por favor insira um email válido",
-            "perfil.required" => "Selecione um perfil de usuário",
-            "perfil.notin" => "Selecione um perfil de usuário",
+            "perfil_id.required" => "Selecione um perfil de usuário",
+            "perfil_id.notin" => "Selecione um perfil de usuário",
         ];
     }
 }
