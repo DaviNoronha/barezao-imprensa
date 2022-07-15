@@ -31,6 +31,7 @@
                 },
                 ajax: "{{ route('datatable.time') }}",
                 columns: [
+                    {data: 'escudo', name: 'escudo', title:""},
                     {data: 'time', name: 'time', title:"Time"},
                     {data: 'empresa', name: 'empresa', title:"Empresa"},
                 ],
