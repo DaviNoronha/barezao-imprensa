@@ -57,24 +57,24 @@
                             <select class="form-control" id="time_id" name="time_id" required>
                                 <option value='0'>Selecione um Time</option>
                                 @foreach ($times as $time)
-                                    <option value="{{$time->id}}">{{$time->empresa}} - {{$time->time}}</option>
+                                    <option value="{{$time->id}}" {{$time->id == $jogador->time->id ? 'selected' : ''}}>{{$time->empresa}} - {{$time->time}}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="form-group col-sm-6">
                             <label for="tipo">Tipo do Jogador:</label>
                             <select class="form-control" id="tipo" name="tipo" required>
-                                <option value='0'>Imprensa</option>
-                                <option value='1'>Estrangeiro</option>
+                                <option value='0' {{$jogador->tipo == 0 ? 'selected' : ''}}>Imprensa</option>
+                                <option value='1' {{$jogador->tipo == 1 ? 'selected' : ''}}>Estrangeiro</option>
                             </select>
                         </div>
                         <div class="form-group col-6">
                             <label for="foto">Foto do Jogador: </label>
-                            <input type="file" class="form-control" id="foto" name="foto" value="{{ $jogador->foto }}" required>
+                            <input type="file" class="form-control" id="foto" name="foto" value="{{ $jogador->foto }}">
                         </div>
                         <div class="form-group col-6">
                             <label for="documento">Documento do Jogador: </label>
-                            <input type="file" class="form-control" id="documento" name="documento" value="{{ $jogador->documento }}" required>
+                            <input type="file" class="form-control" id="documento" name="documento" value="{{ $jogador->documento }}">
                         </div>
                     </div>
                     <a href="{{ route('jogador.index') }}" class="btn btn-default">Voltar</a>

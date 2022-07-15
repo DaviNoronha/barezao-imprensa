@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\JogadorRequest;
+use App\Http\Requests\JogadorUpdateRequest;
 use App\Jogador;
 use App\Services\JogadorService;
 use App\Services\TimeService;
@@ -52,7 +53,7 @@ class JogadorController extends Controller
         ]);
     }
 
-    public function update(JogadorRequest $request, Jogador $jogador)
+    public function update(JogadorUpdateRequest $request, Jogador $jogador)
     {
         JogadorService::update($request, $jogador);
         if ($jogador) {
