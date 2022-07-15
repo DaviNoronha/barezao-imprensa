@@ -9,7 +9,7 @@ class Time extends Model
     protected $table = 'times';
 
     protected $fillable = [
-        'time', 'empresa'
+        'time', 'empresa', 'escudo'
     ];
 
     public function users()

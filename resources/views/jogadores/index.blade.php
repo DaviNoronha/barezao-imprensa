@@ -28,7 +28,7 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive p-3">
+                        <div class="table-responsive p-3 w-100">
                             <table id="tabela-jogadores" class="table table-striped align-items-center table-flush w-100">
                             </table>
                         </div>
@@ -54,8 +54,8 @@
                         data: 'action',
                         name: 'action',
                         title: 'Ações',
-                        orderable: true,
-                        searchable: true
+                        orderable: false,
+                        searchable: false
                     },
                     {data: 'numero', name: 'numero', title:"N° do Jogador"},
                     {data: 'nome', name: 'nome', title:"Nome"},
@@ -63,7 +63,7 @@
                     {data: 'funcao', name: 'funcao', title:"Função"},
                     {data: 'tipo', name: 'tipo', title:"Tipo"},
                 ],
-                searching: false,
+                searching: true,
             });
 
         });

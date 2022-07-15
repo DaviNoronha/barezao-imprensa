@@ -26,7 +26,7 @@ class TimeController extends Controller
 
     public function store(TimeRequest $request)
     {
-        $time = TimeService::store($request->all());
+        $time = TimeService::store($request);
         if ($time) {
             return view('times.index', [
                 'success' => true,
@@ -46,7 +46,7 @@ class TimeController extends Controller
 
     public function update(TimeRequest $request, Time $time)
     {
-        TimeService::update($request->all(), $time);
+        TimeService::update($request, $time);
         if ($time) {
             return view('times.index', [
                 'success' => true,
@@ -78,6 +78,11 @@ class TimeController extends Controller
                     return view('components.acoes', [
                         'data' => $data,
                         'tipo' => 'time'
+                    ]);
+                })
+                ->editColumn('escudo', function($data){
+                    return view('components.escudo', [
+                        'time' => $data,
                     ]);
                 })
                 ->rawColumns(['action'])

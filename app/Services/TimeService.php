@@ -39,7 +39,11 @@ class TimeService
     public static function store($request)
     {
         try {
-            return Time::create($request);
+            return Time::create([
+                'time' => $request->time,
+                'empresa' => $request->empresa,
+                'escudo' => $request->file('escudo')->store('escudos_times/' . $request->time)
+            ]);
         } catch (Throwable $th) {
             Log::error([
                 'mensagem' => $th->getMessage(),
@@ -52,7 +56,10 @@ class TimeService
     public static function update($request, $time)
     {
         try {
-            $time->update($request);
+            $time->time = $request->time;
+            $time->empresa = $request->empresa;
+            $time->escudo = isset($request->escudo) ? $request->file('escudo')->store('escudos_times/' . $request->time) : $time->escudo;
+            $time->save();
             return $time;
         } catch (Throwable $th) {
             Log::error([
@@ -75,19 +82,4 @@ class TimeService
             ]);
         }
     }
-
-//     public static function changeStatus($request, $time)
-//     {
-//         try {
-//             $time->status = $request->status;
-//             $time->save();
-//             return $time;
-//         } catch (Throwable $th) {
-//             Log::error([
-//                 'mensagem' => $th->getMessage(),
-//                 'linha' => $th->getLine(),
-//                 'arquivo' => $th->getFile()
-//             ]);
-//         }
-//     }
 }

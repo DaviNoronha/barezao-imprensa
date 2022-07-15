@@ -54,15 +54,15 @@
                         data: 'action',
                         name: 'action',
                         title: 'Ações',
-                        orderable: true,
-                        searchable: true
+                        orderable: false,
+                        searchable: false
                     },
                     {data: 'nome', name: 'nome', title: 'Nome'},
                     {data: 'email', name: 'email', title: 'E-mail'},
                     {data: 'perfil', name: 'perfil', title: 'Perfil de usuário'},
                     {data: 'time', name: 'time', title: 'Time do usuário'},
                 ],
-                searching: false,
+                searching: true,
             });
 
         });

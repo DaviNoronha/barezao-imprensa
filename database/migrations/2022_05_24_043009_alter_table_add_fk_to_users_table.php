@@ -30,7 +30,9 @@ class AlterTableAddFkToUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            //
+            $table->dropForeign(['perfil_id', 'time_id']);
+            $table->dropColumn('perfil_id');
+            $table->dropColumn('time_id');
         });
     }
 }

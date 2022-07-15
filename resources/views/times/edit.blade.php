@@ -29,7 +29,7 @@
             @endif
 
             <div class="card-body">
-                <form action="{{ route('time.update', $time->id) }}" method='POST'>
+                <form action="{{ route('time.update', $time->id) }}" method='POST' enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <div class="row">
@@ -37,9 +37,13 @@
                             <label for="time">Time: </label>
                             <input type="text" class="form-control" id="time" name="time" value="{{ $time->time }}" required>
                         </div>
-                        <div class="form-group col-12">
+                        <div class="form-group col-6">
                             <label for="empresa">Empresa: </label>
                             <input name="empresa" id="empresa" class="form-control" value="{{ $time->empresa }}" required>
+                        </div>
+                        <div class="form-group col-6">
+                            <label for="escudo">Escudo do Time: </label>
+                            <input type="file" class="form-control" id="escudo" name="escudo">
                         </div>
                     </div>
                     <a href="{{ route('time.index') }}" class="btn btn-default">Voltar</a>

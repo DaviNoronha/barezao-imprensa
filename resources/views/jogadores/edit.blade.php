@@ -70,11 +70,11 @@
                         </div>
                         <div class="form-group col-6">
                             <label for="foto">Foto do Jogador: </label>
-                            <input type="file" class="form-control" id="foto" name="foto" value="{{ $jogador->foto }}">
+                            <input type="file" class="form-control" id="foto" name="foto">
                         </div>
                         <div class="form-group col-6">
                             <label for="documento">Documento do Jogador: </label>
-                            <input type="file" class="form-control" id="documento" name="documento" value="{{ $jogador->documento }}">
+                            <input type="file" class="form-control" id="documento" name="documento">
                         </div>
                     </div>
                     <a href="{{ route('jogador.index') }}" class="btn btn-default">Voltar</a>

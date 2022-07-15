@@ -68,8 +68,8 @@ class JogadorService
             $jogador->numero = $request->numero;
             $jogador->nome_camisa = $request->nome_camisa;
             $jogador->cpf = $request->cpf;
-            $jogador->documento = $request->filled('documento') ? $request->file('documento')->store('documentos/' . $request->time_id . '/' . $request->numero) : $jogador->documento;
-            $jogador->foto = $request->filled('foto') ? $request->file('foto')->store('jogador_fotos/' . $request->time_id . '/' . $request->numero) : $jogador->foto;
+            $jogador->documento = isset($request->documento) ? $request->file('documento')->store('documentos/' . $request->time_id . '/' . $request->numero) : $jogador->documento;
+            $jogador->foto = isset($request->foto) ? $request->file('foto')->store('jogador_fotos/' . $request->time_id . '/' . $request->numero) : $jogador->foto;
             $jogador->tipo = $request->tipo;
             $jogador->funcao = $request->funcao;
             $jogador->tipo = $request->tipo;

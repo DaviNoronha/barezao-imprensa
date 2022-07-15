@@ -54,8 +54,8 @@
                         data: 'action',
                         name: 'action',
                         title: 'Ações',
-                        orderable: true,
-                        searchable: true
+                        orderable: false,
+                        searchable: false
                     },
                     {data: 'numero', name: 'numero', title:"N° do Jogador"},
                     {data: 'nome', name: 'nome', title:"Nome"},
@@ -63,7 +63,7 @@
                     {data: 'funcao', name: 'funcao', title:"Função"},
                     {data: 'tipo', name: 'tipo', title:"Tipo"},
                 ],
-                searching: false,
+                searching: true,
             });
 
         });

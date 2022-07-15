@@ -29,16 +29,20 @@
                     </div>
                 @endif
 
-                <form method='POST' action="{{ route('time.store') }}" >
+                <form method='POST' action="{{ route('time.store') }}" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
                         <div class="form-group col-12">
                             <label for="time">Time: </label>
                             <input type="text" class="form-control" id="time" name="time" value="{{ old('time')}}" required>
                         </div>
-                        <div class="form-group col-12">
+                        <div class="form-group col-6">
                             <label for="empresa">Empresa: </label>
                             <input name="empresa" id="empresa" class="form-control" value="{{ old('empresa')}}" required>
+                        </div>
+                        <div class="form-group col-6">
+                            <label for="escudo">Escudo do Time: </label>
+                            <input type="file" class="form-control" id="escudo" name="escudo" required>
                         </div>
                     </div>
                     <a href="{{ route('time.index') }}" class="btn btn-default">Voltar</a>

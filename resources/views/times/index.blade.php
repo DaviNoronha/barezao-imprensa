@@ -29,7 +29,7 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table id="tabela-times" class="table table-striped align-items-center table-flush w-100">
+                            <table id="tabela-times" class="table table-striped table-flush w-100">
                             </table>
                         </div>
                     </div>
@@ -54,13 +54,14 @@
                         data: 'action',
                         name: 'action',
                         title: 'Ações',
-                        orderable: true,
-                        searchable: true
+                        orderable: false,
+                        searchable: false
                     },
+                    {data: 'escudo', name: 'escudo', title:""},
                     {data: 'time', name: 'time', title:"Time"},
                     {data: 'empresa', name: 'empresa', title:"Empresa"},
                 ],
-                searching: false,
+                searching: true,
             });
 
         });
