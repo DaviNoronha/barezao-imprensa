@@ -43,7 +43,7 @@
                                                 </div>
                                             </div>
                                             <hr class="mt--1 border-primary">
-                                            <h2 class="mt--3 text-white display-5"><span class="text-primary">Data de Nascimento: </span>{{$jogador->data_nascimento}}</h2>
+                                            <h2 class="mt--3 text-white display-5"><span class="text-primary">Data de Nascimento: </span>{{$jogador->data_nascimento ?? ''}}</h2>
                                             <h2 class="text-white display-5"><span class="text-primary">Empresa: </span>{{$jogador->time->empresa}}
                                             <h2 class="text-white display-5"><span class="text-primary">Ocupação: </span>{{$jogador->funcao}}</h2>
                                         </div>
