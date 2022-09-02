@@ -36,7 +36,7 @@
                     {data: 'empresa', name: 'empresa', title:"Empresa"},
                 ],
                 searching: false,
-                paging: false,
+            paging: false,
                 info: false
             });
 

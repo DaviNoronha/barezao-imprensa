@@ -32,9 +32,13 @@
                     @csrf
                     @method('PUT')
                     <div class="row">
-                        <div class="form-group col-12">
+                        <div class="form-group col-6">
                             <label for="nome">Nome Completo: </label>
                             <input type="text" class="form-control" id="nome" name="nome" value="{{ $jogador->nome }}" required>
+                        </div>
+                        <div class="form-group col-6">
+                            <label for="data_nascimento">Data de Nascimento: </label>
+                            <input type="text" class="form-control data" id="data_nascimento" name="data_nascimento" value="{{ $jogador->data_nascimento }}" required>
                         </div>
                         <div class="form-group col-6">
                             <label for="numero">N° do Jogador: </label>

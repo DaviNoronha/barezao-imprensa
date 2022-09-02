@@ -31,9 +31,13 @@
                 <form method='POST' action="{{ route('jogador.store') }}" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
-                        <div class="form-group col-12">
+                        <div class="form-group col-6">
                             <label for="nome">Nome Completo: </label>
                             <input type="text" class="form-control" id="nome" name="nome" value="{{ old('nome')}}" required>
+                        </div>
+                        <div class="form-group col-6">
+                            <label for="data_nascimento">Data de Nascimento: </label>
+                            <input type="text" class="form-control data" id="data_nascimento" name="data_nascimento" value="{{ old('nome')}}" required>
                         </div>
                         <div class="form-group col-6">
                             <label for="numero">N° do Jogador: </label>
@@ -82,5 +86,9 @@
             </div>
         </div>
     </div>
+<script>
+
+</script>
 @endsection
+
 

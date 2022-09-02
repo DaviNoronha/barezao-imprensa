@@ -50,6 +50,7 @@ class JogadorService
                 'funcao' => $request->funcao,
                 'tipo' => $request->tipo,
                 'time_id' => $request->time_id,
+                'data_nascimento' => $request->data_nascimento,
             ]);
         } catch (Throwable $th) {
             Log::error([
@@ -74,6 +75,7 @@ class JogadorService
             $jogador->funcao = $request->funcao;
             $jogador->tipo = $request->tipo;
             $jogador->time_id = $request->time_id;
+            $jogador->data_nascimento = $request->data_nascimento;
             return $jogador->update();
         } catch (Throwable $th) {
             Log::error([
