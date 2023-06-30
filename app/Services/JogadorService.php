@@ -11,9 +11,13 @@ class JogadorService
 {
     public static function list($timeId = null) {
         try {
-            return Jogador::when($timeId, function ($q) use($timeId) {
-                $q->where('time_id', $timeId);
-            })->with('time')->get();
+            if ($timeId) {
+                return Jogador::withoutGlobalScopes()
+                    ->where('time_id', $timeId)
+                    ->with('time')
+                    ->get();
+            }
+            return Jogador::with('time')->get();
         } catch (Throwable $th) {
             Log::error([
                 'mensagem' => $th->getMessage(),
@@ -26,7 +30,7 @@ class JogadorService
     public static function find($id)
     {
         try {
-            return Jogador::where('id', $id)->with('time')->first();
+            return Jogador::withoutGlobalScopes()->where('id', $id)->with('time')->first();
         } catch (Throwable $th) {
             Log::error([
                 'mensagem' => $th->getMessage(),
@@ -90,6 +94,19 @@ class JogadorService
     {
         try {
             return $jogador->delete();
+        } catch (Throwable $th) {
+            Log::error([
+                'mensagem' => $th->getMessage(),
+                'linha' => $th->getLine(),
+                'arquivo' => $th->getFile()
+            ]);
+        }
+    }
+
+    public static function jogadorByNome($nome)
+    {
+        try {
+            return Jogador::withoutGlobalScopes()->where('nome', $nome)->with('time')->first()->toArray();
         } catch (Throwable $th) {
             Log::error([
                 'mensagem' => $th->getMessage(),

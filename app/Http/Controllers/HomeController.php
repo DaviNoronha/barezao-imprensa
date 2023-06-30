@@ -2,25 +2,33 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\TimeService;
+
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware('auth');
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\View\View
-     */
     public function index()
     {
-        return view('dashboard');
+        return view('dashboard', [
+            'times' => TimeService::list()
+        ]);
+    }
+
+    public function edicaoTimes()
+    {
+        return view('edicao.times', [
+            'times' => TimeService::listByEdicao()
+        ]);
+    }
+
+    public function edicaoJogadores(int $timeId)
+    {
+        return view('edicao.jogadores', [
+            'time' => TimeService::find($timeId)
+        ]);
     }
 }

@@ -20,8 +20,8 @@ class JogadorController extends Controller
 
     public function create()
     {
-        return view('jogadores.create', [
-            'times' => TimeService::list(Auth::user()->time->id ?? null),
+        return view('jogadores.form', [
+            'times' => TimeService::selectTimes(Auth::user()->time->id ?? null),
         ]);
     }
 
@@ -38,18 +38,18 @@ class JogadorController extends Controller
         return redirect()->route('jogador.create')->with('errors', $request->messages());
     }
 
-    public function show(Jogador $jogador)
+    public function show(int $jogadorId)
     {
         return view('jogadores.show', [
-            'jogador' => JogadorService::find($jogador->id)
+            'jogador' => JogadorService::find($jogadorId)
         ]);
     }
 
     public function edit(Jogador $jogador)
     {
-        return view('jogadores.edit', [
+        return view('jogadores.form', [
             'jogador' => $jogador,
-            'times' => TimeService::list(Auth::user()->time->id ?? null),
+            'times' => TimeService::selectTimes(Auth::user()->time->id ?? null),
         ]);
     }
 
@@ -100,4 +100,10 @@ class JogadorController extends Controller
                 ->make(true);
         }
     }
+
+    public function pesquisar(Request $request)
+    {
+        return JogadorService::jogadorByNome($request->search);
+    }
+
 }

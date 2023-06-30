@@ -21,7 +21,7 @@ class TimeController extends Controller
 
     public function create()
     {
-        return view('times.create');
+        return view('times.form');
     }
 
     public function store(TimeRequest $request)
@@ -39,7 +39,7 @@ class TimeController extends Controller
 
     public function edit(Time $time)
     {
-        return view('times.edit', [
+        return view('times.form', [
             'time' => $time,
         ]);
     }
@@ -90,13 +90,12 @@ class TimeController extends Controller
         }
     }
 
-    public function jogadores(Time $time)
+    public function jogadores(int $timeId)
     {
-            return view('times.jogadores', [
-            'time' => TimeService::find($time->id)
+        return view('times.jogadores', [
+            'time' => TimeService::find($timeId)
         ]);
     }
-
 
     public function datatableJogadores(Request $request)
     {

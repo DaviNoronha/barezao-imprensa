@@ -2,44 +2,10 @@
 
 @section('content')
     @include('layouts.headers.cards')
-    <div class="container-fluid mt--7">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="table-responsive p-3">
-                            <table id="tabela-times" class="table table-striped align-items-center table-flush w-100">
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    @include('layouts.content.times_cards')
 @endsection
 
 @push('js')
     <script src="{{ asset('argon') }}/vendor/chart.js/dist/Chart.min.js"></script>
     <script src="{{ asset('argon') }}/vendor/chart.js/dist/Chart.extension.js"></script>
-    <script type="text/javascript">
-        $(function () {
-            var table = $('#tabela-times').DataTable({
-                processing: true,
-                serverSide: true,
-                language: {
-                    url: "//cdn.datatables.net/plug-ins/1.12.1/i18n/pt-BR.json"
-                },
-                ajax: "{{ route('datatable.time') }}",
-                columns: [
-                    {data: 'escudo', name: 'escudo', title:""},
-                    {data: 'time', name: 'time', title:"Time"},
-                    {data: 'empresa', name: 'empresa', title:"Empresa"},
-                ],
-                searching: false,
-            paging: false,
-                info: false
-            });
-
-        });
-    </script>
 @endpush
