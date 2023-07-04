@@ -22,7 +22,7 @@ class Jogador extends Model
 
     public function getIdadeAttribute()
     {
-        return Carbon::createFromFormat('d/m/Y', $this->data_nascimento)->age;  
+        return $this->data_nascimento ? Carbon::createFromFormat('d/m/Y', $this->data_nascimento)->age : null;  
     }
 
     protected static function booted()
