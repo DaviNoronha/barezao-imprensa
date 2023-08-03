@@ -6,9 +6,9 @@
                     <div class="card card-barezao btn btn-secondary mb-2">
                         <div class="card-body p-1">
                             <div class="d-flex justify-content-around align-items-center">
-                                    <img src="{{ asset('storage') . '/' . $time->logo }}" class="text-center" style="width:80px; height:80px" alt="">
+                                    <img src="{{ asset('storage') . '/' . $time->logo }}" class="text-center" style="max-width: 60%; max-height: 80px" alt="">
                                 <div>
-                                    <img src="{{ asset('storage') . '/' . $time->escudo }}" class="text-center" style="width:80px; height:80px" alt="">
+                                    <img src="{{ asset('storage') . '/' . $time->escudo }}" class="text-center" style="width:80px; max-height: 80px" alt="">
                                     <h2 class="text-center">{{$time->time}}</h2>
                                 </div>
                             </div>

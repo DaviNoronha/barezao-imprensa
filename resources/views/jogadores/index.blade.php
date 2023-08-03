@@ -57,11 +57,12 @@
                         orderable: false,
                         searchable: false
                     },
-                    {data: 'numero', name: 'numero', title:"N° do Jogador"},
-                    {data: 'nome', name: 'nome', title:"Nome"},
-                    {data: 'time', name: 'time', title:"Time"},
-                    {data: 'funcao', name: 'funcao', title:"Função"},
-                    {data: 'tipo', name: 'tipo', title:"Tipo"},
+                    {data: 'numero', name: 'numero', title: "N° do Jogador"},
+                    {data: 'nome', name: 'nome', title: "Nome"},
+                    {data: 'time', name: 'time', title: "Time"},
+                    {data: 'funcao', name: 'funcao', title: "Função"},
+                    {data: 'tipo', name: 'tipo', title: "Tipo"},
+                    {data: 'status', name: 'status', title: "Status"},
                 ],
                 searching: true,
             });

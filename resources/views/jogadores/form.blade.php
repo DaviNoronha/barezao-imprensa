@@ -77,7 +77,7 @@
     
                     <div class="form-group col-6">
                         {!! Form::label('tipo', 'Tipo de Jogador') !!}
-                        {!! Form::select('tipo', [0 => 'Imprensa', 1 => 'Estrangeiro'], null, ['class' => 'form-control', 'id' => 'tipo', 'name' => 'tipo', 'required' => true]) !!}
+                        {!! Form::select('tipo', [0 => 'Imprensa', 1 => 'Estrangeiro', 2 => 'Convidado'], null, ['class' => 'form-control', 'id' => 'tipo', 'name' => 'tipo', 'required' => true]) !!}
                     </div>
     
                     <div class="form-group col-6">

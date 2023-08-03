@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Jogador;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Throwable;
 
@@ -12,12 +13,17 @@ class JogadorService
     public static function list($timeId = null) {
         try {
             if ($timeId) {
-                return Jogador::withoutGlobalScopes()
+                $jogadores = Jogador::withoutGlobalScopes()
                     ->where('time_id', $timeId)
-                    ->with('time')
-                    ->get();
+                    ->with('time');
+            } else {
+                $jogadores = Jogador::with('time');
             }
-            return Jogador::with('time')->get();
+            $jogadores = $jogadores->when(Auth::user()->perfil->nome != 'admin', function ($q) {
+                    $q->where('status', 1);
+                })
+                ->get();
+            return $jogadores;
         } catch (Throwable $th) {
             Log::error([
                 'mensagem' => $th->getMessage(),
@@ -94,6 +100,21 @@ class JogadorService
     {
         try {
             return $jogador->delete();
+        } catch (Throwable $th) {
+            Log::error([
+                'mensagem' => $th->getMessage(),
+                'linha' => $th->getLine(),
+                'arquivo' => $th->getFile()
+            ]);
+        }
+    }
+
+    public static function updateStatus($jogador)
+    {
+        try {
+            $jogador->status = !$jogador->status;
+            $jogador->save();
+            return $jogador;
         } catch (Throwable $th) {
             Log::error([
                 'mensagem' => $th->getMessage(),

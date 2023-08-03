@@ -75,7 +75,17 @@ class JogadorController extends Controller
             ]);
         }
 
-        return redirect()->route('jogador.index')->with('errors', 'Erro ao deletar usuário!');
+        return redirect()->route('jogador.index')->with('errors', 'Erro ao deletar jogador!');
+    }
+
+    public function updateStatus(Jogador $jogador)
+    {
+        $jogador = JogadorService::updateStatus($jogador);
+        if ($jogador) {
+            return redirect()->route('jogador.index')->with('success', 'Status do jogador alterado com sucesso!');
+        }
+
+        return redirect()->route('jogador.index')->with('errors', 'Erro ao alterar status do jogador!');
     }
 
     public function datatable(Request $request)
@@ -84,17 +94,22 @@ class JogadorController extends Controller
             $data = JogadorService::list($request->timeId);
             return Datatables::of($data)
                 ->addIndexColumn()
-                ->addColumn('action', function($data){
+                ->addColumn('action', function($data) {
                     return view('components.acoes', [
                         'data' => $data,
                         'tipo' => 'jogador'
                     ]);
                 })
-                ->editColumn('time', function($data){
+                ->editColumn('time', function($data) {
                     return $data->time->time;
                 })
-                ->editColumn('tipo', function($data){
-                    return $data->tipo == '0' ? 'Imprensa' : 'Estrangeiro';
+                ->editColumn('tipo', function($data) {
+                    return $data->tipo_formatted;
+                })
+                ->editColumn('status', function($data) {
+                    return view('components.status', [
+                        'data' => $data
+                    ]);
                 })
                 ->rawColumns(['action'])
                 ->make(true);

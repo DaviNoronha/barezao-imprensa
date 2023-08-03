@@ -37,6 +37,7 @@ Route::group(['middleware' => 'auth'], function () {
 	
 	Route::resource('jogador', 'JogadorController');
 	Route::get('pesquisar-jogador', 'JogadorController@pesquisar')->name('jogador.pesquisar');
+	Route::get('jogador/update-status/{jogador}', 'JogadorController@updateStatus')->name('jogador.update-status');
 	Route::get('datatable/jogador', 'JogadorController@datatable')->name('datatable.jogador');
 });
 

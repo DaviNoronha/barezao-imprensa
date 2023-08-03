@@ -13,7 +13,13 @@ class Jogador extends Model
     protected $fillable = [
         'nome', 'numero', 'nome_camisa', 'cpf', 'documento', 'foto', 'tipo', 'funcao', 'time_id', 'data_nascimento'
     ];
-    protected $appends = ['idade'];
+    protected $appends = ['idade', 'tipo_formatted'];
+
+    protected const TIPOS = [
+        0 => 'Imprensa',
+        1 => 'Estrangeiro',
+        2 => 'Convidado'
+    ];
 
     public function time()
     {
@@ -23,6 +29,11 @@ class Jogador extends Model
     public function getIdadeAttribute()
     {
         return $this->data_nascimento ? Carbon::createFromFormat('d/m/Y', $this->data_nascimento)->age : null;  
+    }
+
+    public function getTipoFormattedAttribute()
+    {
+        return self::TIPOS[$this->tipo];  
     }
 
     protected static function booted()
